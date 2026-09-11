@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>entrapeer — Ajan Ana Sayfasi</title>
+  <meta name="description" content="Ajan secim ana sayfasi: avatar kartlari, alt baslik sekmeleri ve hizli erisim." />
+  <link rel="icon" href="assets/img/favicon.svg" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#stage">Icerige gec</a>
+
+  <div class="app">
+
+    <!-- ================= SOL RAY ================= -->
+    <aside class="rail" aria-label="Ana menu">
+      <button class="rail__toggle" type="button" aria-label="Menuyu genislet" data-action="toggle-rail">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9 4v16"/><path d="M13.5 9.5 16 12l-2.5 2.5"/></svg>
+      </button>
+
+      <nav class="rail__nav">
+        <button class="rail__item is-active" type="button" data-action="new-chat">
+          <span class="rail__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-8 8H7l-4 3 1-5.2A8 8 0 1 1 21 12Z"/><path d="M12 9v6M9 12h6"/></svg>
+          </span>
+          <span class="rail__label">New Chat</span>
+        </button>
+
+        <button class="rail__item" type="button" data-action="activities">
+          <span class="rail__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9M9 19V5M14 19v-7M19 19v-11"/></svg>
+          </span>
+          <span class="rail__label">Activities</span>
+        </button>
+      </nav>
+
+      <div class="rail__bottom">
+        <button class="rail__item rail__item--icon" type="button" data-action="notifications" aria-label="Bildirimler">
+          <span class="rail__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 1 0-12 0c0 6-2 7-2 7h16s-2-1-2-7Z"/><path d="M13.7 20a2 2 0 0 1-3.4 0"/></svg>
+          </span>
+        </button>
+        <button class="rail__avatar" type="button" data-action="profile" aria-label="Profil">
+          <span data-site="initials">MK</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ================= ORTA ALAN ================= -->
+    <main class="main">
+      <section class="hero">
+        <h1 class="hero__title">
+          <span data-site="greeting">Hello</span>
+          <span class="hero__name" data-site="userName">Ahmed</span>
+        </h1>
+        <p class="hero__subtitle" data-site="subtitle"></p>
+
+        <!-- 3 AVATAR KARTI: JS tarafindan data/agents.js icerigi ile doldurulur -->
+        <div class="stage" id="stage" role="list" aria-label="Ajanlar"></div>
+
+        <form class="composer" id="composer" autocomplete="off">
+          <label class="sr-only" for="composer-input">Mesajiniz</label>
+          <textarea id="composer-input" class="composer__input" rows="1" placeholder="Bugun neyi arastiralim?"></textarea>
+          <button class="composer__send" type="submit" aria-label="Gonder">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12 20 4l-3 8 3 8-16-8Z"/></svg>
+          </button>
+        </form>
+        <p class="composer__hint">
+          Mesajiniz secili ajana iletilir — su an secili: <strong id="active-agent-name">—</strong>
+        </p>
+      </section>
+    </main>
+
+    <!-- ================= SAG DOCK ================= -->
+    <nav class="dock" id="dock" aria-label="Hizli erisim"></nav>
+
+    <footer class="footer">
+      <nav class="footer__links" id="footer-links" aria-label="Alt menu"></nav>
+      <p class="footer__copy" data-site="copyright"></p>
+    </footer>
+  </div>
+
+  <!-- ================= ONBOARDING KARUSELI ================= -->
+  <div class="overlay" id="overlay" hidden>
+    <div class="overlay__backdrop" data-action="close-overlay"></div>
+    <div class="overlay__dialog" role="dialog" aria-modal="true" aria-label="Ajanlari tani">
+      <button class="overlay__close" type="button" data-action="close-overlay" aria-label="Kapat">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+      </button>
+
+      <button class="overlay__nav overlay__nav--prev" type="button" data-action="prev">
+        <span class="overlay__navBtn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg>
+        </span>
+        <span class="overlay__navLabel">See previous<br />agent</span>
+      </button>
+
+      <div class="overlay__track" id="overlay-track"></div>
+
+      <button class="overlay__nav overlay__nav--next" type="button" data-action="next">
+        <span class="overlay__navBtn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg>
+        </span>
+        <span class="overlay__navLabel">See next<br />agent</span>
+      </button>
+
+      <label class="overlay__dismiss">
+        <input type="checkbox" id="dont-show" />
+        <span>Don't show me this again</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="data/site.js"></script>
+  <script src="data/agents.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
