@@ -1,6 +1,6 @@
 /* =============================================================================
-   entrapeer — Ajan ana sayfasi
-   Tum icerik data/site.js ve data/agents.js dosyalarindan okunur.
+   Ajan ana sayfası
+   Tüm içerik data/site.js ve data/agents.js dosyalarından okunur.
    ========================================================================== */
 
 (function () {
@@ -9,7 +9,7 @@
   var SITE = window.SITE || {};
   var AGENTS = Array.isArray(window.AGENTS) ? window.AGENTS.slice(0, 3) : [];
 
-  var STORAGE_KEY = 'entrapeer:onboarding-dismissed';
+  var STORAGE_KEY = 'ajan-ana-sayfa:onboarding-dismissed';
 
   var els = {
     stage: document.getElementById('stage'),
@@ -25,7 +25,7 @@
   };
 
   /* --------------------------------------------------------------------- */
-  /* Yardimcilar                                                            */
+  /* Yardımcılar                                                            */
   /* --------------------------------------------------------------------- */
 
   function el(tag, className, text) {
@@ -64,17 +64,17 @@
     }, 3200);
   }
 
-  /* Link henuz tanimlanmamis butonlar icin ortak davranis */
+  /* Bağlantısı henüz tanımlanmamış butonlar için ortak davranış */
   function openLink(url, fallbackMessage) {
     if (!hasLink(url)) {
-      toast(fallbackMessage || 'Bu baglanti henuz tanimlanmadi. data/agents.js icindeki "link" alanini doldurun.');
+      toast(fallbackMessage || 'Bu bağlantı henüz tanımlanmadı. data/agents.js içindeki "link" alanını doldurun.');
       return false;
     }
     window.open(url, '_blank', 'noopener,noreferrer');
     return true;
   }
 
-  /* Gorsel yuklenemezse bas harfli yedek avatar uret */
+  /* Görsel yüklenemezse baş harfli yedek avatar üret */
   function fallbackAvatar(agent) {
     var letter = (agent.name || '?').charAt(0).toUpperCase();
     var accent = agent.accent || '#2563ff';
@@ -102,7 +102,6 @@
     });
 
     if (SITE.placeholder && els.input) els.input.placeholder = SITE.placeholder;
-    if (SITE.brand) document.title = SITE.brand + ' — Ajan Ana Sayfasi';
 
     if (els.footerLinks) {
       (SITE.footerLinks || []).forEach(function (item) {
@@ -117,7 +116,7 @@
           node.href = '#';
           node.addEventListener('click', function (event) {
             event.preventDefault();
-            toast('"' + item.label + '" baglantisi data/site.js icinde tanimlanabilir.');
+            toast('"' + item.label + '" bağlantısı data/site.js içinde tanımlanabilir.');
           });
         }
         els.footerLinks.appendChild(node);
@@ -126,7 +125,7 @@
   }
 
   /* --------------------------------------------------------------------- */
-  /* Avatar karti                                                           */
+  /* Avatar kartı                                                           */
   /* --------------------------------------------------------------------- */
 
   function buildCard(agent, index, scope) {
@@ -140,7 +139,7 @@
     card.appendChild(el('span', 'card-glow'));
     card.appendChild(el('span', 'card__veil'));
 
-    /* Foto */
+    /* Fotoğraf */
     var photo = el('div', 'card__photo');
     var img = document.createElement('img');
     img.src = hasLink(agent.photo) ? agent.photo : fallbackAvatar(agent);
@@ -154,14 +153,14 @@
     photo.appendChild(img);
     card.appendChild(photo);
 
-    /* Govde */
+    /* Gövde */
     var body = el('div', 'card__body');
     body.appendChild(el('h3', 'card__name', agent.name));
     body.appendChild(el('p', 'card__role', agent.role || ''));
     body.appendChild(el('hr', 'card__rule'));
     body.appendChild(el('p', 'card__summary', agent.summary || ''));
 
-    /* Hover ile acilan alt basliklar */
+    /* Üzerine gelince açılan alt başlıklar */
     var tabs = Array.isArray(agent.tabs) ? agent.tabs : [];
     var tabButtons = [];
     var panels = [];
@@ -172,7 +171,7 @@
 
       var tablist = el('div', 'tabs');
       tablist.setAttribute('role', 'tablist');
-      tablist.setAttribute('aria-label', agent.name + ' alt basliklari');
+      tablist.setAttribute('aria-label', agent.name + ' alt başlıkları');
 
       var panelWrap = el('div', 'panels');
 
@@ -198,7 +197,7 @@
         var target = hasLink(tab.link) ? tab.link : agent.link;
         var open = el('a', 'panel__link');
         open.href = hasLink(target) ? target : '#';
-        open.textContent = 'Bu bolume git';
+        open.textContent = 'Bu bölüme git';
         open.appendChild(svg(['M7 17 17 7', 'M9 7h8v8']));
         if (hasLink(target)) {
           open.target = '_blank';
@@ -206,7 +205,7 @@
         } else {
           open.addEventListener('click', function (event) {
             event.preventDefault();
-            toast(agent.name + ' / ' + tab.label + ' icin link henuz tanimlanmadi.');
+            toast(agent.name + ' / ' + tab.label + ' için bağlantı henüz tanımlanmadı.');
           });
         }
         panel.appendChild(open);
@@ -237,7 +236,7 @@
       body.appendChild(extra);
     }
 
-    /* Erisim butonu */
+    /* Erişim butonu */
     var cta = el('a', 'card__cta', agent.cta || 'Inspire me');
     cta.href = hasLink(agent.link) ? agent.link : '#';
     if (hasLink(agent.link)) {
@@ -247,12 +246,12 @@
       cta.dataset.state = 'pending';
       cta.addEventListener('click', function (event) {
         event.preventDefault();
-        toast(agent.name + ' icin erisim linki henuz tanimlanmadi — data/agents.js > "' + (agent.id || agent.name) + '" > link');
+        toast(agent.name + ' için erişim bağlantısı henüz tanımlanmadı — data/agents.js > "' + (agent.id || agent.name) + '" > link');
       });
     }
     body.appendChild(cta);
 
-    /* Sekme gostergesi (noktalar) */
+    /* Sekme göstergesi (noktalar) */
     if (tabs.length > 1) {
       var dots = el('div', 'card__dots');
       tabs.forEach(function (tab, tabIndex) {
@@ -284,11 +283,11 @@
   }
 
   /* --------------------------------------------------------------------- */
-  /* Kart gruplari (ana sayfa + onboarding karuseli)                        */
+  /* Kart grupları (ana sayfa + tanıtım karuseli)                        */
   /* --------------------------------------------------------------------- */
 
-  /* Sekmeler acilinca sayfanin zipllamamasi icin en yuksek kartin
-     yuksekligini onceden rezerve et. */
+  /* Sekmeler açılınca sayfanın zıplamaması için en yüksek kartın
+     yüksekliğini önceden rezerve et. */
   function reserveHeight(container, cards) {
     container.style.minHeight = '';
     var tallest = 0;
@@ -324,10 +323,10 @@
     }
 
     cards.forEach(function (card, index) {
-      /* Uzerine gelince ilgili kart one cikar ve alt basliklari acilir */
+      /* Üzerine gelince ilgili kart öne çıkar ve alt başlıkları açılır */
       card.addEventListener('mouseenter', function () { setActive(index); });
       card.addEventListener('focusin', function () { setActive(index); });
-      /* Dokunmatik cihazlarda tiklama ayni isi gorur */
+      /* Dokunmatik cihazlarda tıklama aynı işi görür */
       card.addEventListener('click', function () { setActive(index); });
     });
 
@@ -357,7 +356,7 @@
     return {
       cards: cards,
       setActive: setActive,
-      /* Onboarding acikken ana sayfadaki kart vurgusunu gecici olarak kaldir */
+      /* Tanıtım karuseli açıkken ana sayfadaki kart vurgusunu geçici olarak kaldır */
       suspend: function () { cards.forEach(function (card) { card.classList.remove('is-active'); }); },
       resume: function () { setActive(active, false); },
       next: function () { setActive((active + 1) % cards.length); },
@@ -367,7 +366,7 @@
   }
 
   /* --------------------------------------------------------------------- */
-  /* Sag taraftaki kisayollar                                               */
+  /* Sağdaki kısayollar                                               */
   /* --------------------------------------------------------------------- */
 
   var GLYPHS = {
@@ -389,14 +388,14 @@
       button.appendChild(el('span', 'shortcut__tip', item.label));
       if (!hasLink(item.link)) button.dataset.state = 'pending';
       button.addEventListener('click', function () {
-        openLink(item.link, '"' + item.label + '" linki data/site.js > shortcuts icinde tanimlanabilir.');
+        openLink(item.link, '"' + item.label + '" bağlantısı data/site.js > shortcuts içinde tanımlanabilir.');
       });
       els.dock.appendChild(button);
     });
   }
 
   /* --------------------------------------------------------------------- */
-  /* Yazi kutusu                                                            */
+  /* Yazı kutusu                                                            */
   /* --------------------------------------------------------------------- */
 
   function setupComposer(deck) {
@@ -421,7 +420,7 @@
 
       var text = els.input.value.trim();
       if (!hasLink(agent.link)) {
-        toast(agent.name + ' icin erisim linki henuz tanimlanmadi.');
+        toast(agent.name + ' için erişim bağlantısı henüz tanımlanmadı.');
         return;
       }
 
@@ -429,7 +428,7 @@
       try {
         url = new URL(agent.link, window.location.href);
       } catch (error) {
-        toast('Link bicimi hatali: ' + agent.link);
+        toast('Bağlantı biçimi hatalı: ' + agent.link);
         return;
       }
       if (text) url.searchParams.set(agent.query || 'q', text);
@@ -441,7 +440,7 @@
   }
 
   /* --------------------------------------------------------------------- */
-  /* Onboarding karuseli                                                    */
+  /* Tanıtım karuseli                                                    */
   /* --------------------------------------------------------------------- */
 
   function readDismissed() {
@@ -451,7 +450,7 @@
 
   function writeDismissed(value) {
     try { window.localStorage.setItem(STORAGE_KEY, value ? '1' : '0'); }
-    catch (error) { /* gizli sekme / depolama kapali */ }
+    catch (error) { /* gizli sekme / depolama kapalı */ }
   }
 
   function setupOverlay(mainDeck) {
@@ -513,7 +512,7 @@
       if (action === 'toggle-rail') {
         node.addEventListener('click', function () {
           var open = app.classList.toggle('is-rail-open');
-          node.setAttribute('aria-label', open ? 'Menuyu daralt' : 'Menuyu genislet');
+          node.setAttribute('aria-label', open ? 'Menüyü daralt' : 'Menüyü genişlet');
         });
       }
 
@@ -527,14 +526,14 @@
 
       if (action === 'activities' || action === 'notifications' || action === 'profile') {
         node.addEventListener('click', function () {
-          openLink(nav[action], 'Bu bolumun linki data/site.js > nav icinde tanimlanabilir.');
+          openLink(nav[action], 'Bu bölümün bağlantısı data/site.js > nav içinde tanımlanabilir.');
         });
       }
     });
   }
 
   /* --------------------------------------------------------------------- */
-  /* Baslat                                                                 */
+  /* Başlat                                                                 */
   /* --------------------------------------------------------------------- */
 
   function init() {
@@ -542,7 +541,7 @@
     renderDock();
 
     if (!AGENTS.length) {
-      els.stage.appendChild(el('p', 'composer__hint', 'data/agents.js icinde tanimli ajan bulunamadi.'));
+      els.stage.appendChild(el('p', 'composer__hint', 'data/agents.js içinde tanımlı ajan bulunamadı.'));
       return;
     }
 

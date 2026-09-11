@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>entrapeer — Ajan Ana Sayfasi</title>
-  <meta name="description" content="Ajan secim ana sayfasi: avatar kartlari, alt baslik sekmeleri ve hizli erisim." />
+  <title>Ajan Ana Sayfası</title>
+  <meta name="description" content="Ajan seçim ana sayfası: avatar kartları, alt başlık sekmeleri ve hızlı erişim." />
   <link rel="icon" href="assets/img/favicon.svg" />
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
-  <a class="skip-link" href="#stage">Icerige gec</a>
+  <a class="skip-link" href="#stage">İçeriğe geç</a>
 
   <div class="app">
 
     <!-- ================= SOL RAY ================= -->
-    <aside class="rail" aria-label="Ana menu">
-      <button class="rail__toggle" type="button" aria-label="Menuyu genislet" data-action="toggle-rail">
+    <aside class="rail" aria-label="Ana menü">
+      <button class="rail__toggle" type="button" aria-label="Menüyü genişlet" data-action="toggle-rail">
         <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9 4v16"/><path d="M13.5 9.5 16 12l-2.5 2.5"/></svg>
       </button>
 
@@ -24,14 +24,14 @@
           <span class="rail__icon">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-8 8H7l-4 3 1-5.2A8 8 0 1 1 21 12Z"/><path d="M12 9v6M9 12h6"/></svg>
           </span>
-          <span class="rail__label">New Chat</span>
+          <span class="rail__label">Yeni Sohbet</span>
         </button>
 
         <button class="rail__item" type="button" data-action="activities">
           <span class="rail__icon">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9M9 19V5M14 19v-7M19 19v-11"/></svg>
           </span>
-          <span class="rail__label">Activities</span>
+          <span class="rail__label">Etkinlikler</span>
         </button>
       </nav>
 
@@ -51,8 +51,8 @@
     <main class="main">
       <section class="hero">
         <h1 class="hero__title">
-          <span data-site="greeting">Hello</span>
-          <span class="hero__name" data-site="userName">Ahmed</span>
+          <span data-site="greeting">Merhaba</span>
+          <span class="hero__name" data-site="userName">Ahmet</span>
         </h1>
         <p class="hero__subtitle" data-site="subtitle"></p>
 
@@ -60,23 +60,23 @@
         <div class="stage" id="stage" role="list" aria-label="Ajanlar"></div>
 
         <form class="composer" id="composer" autocomplete="off">
-          <label class="sr-only" for="composer-input">Mesajiniz</label>
-          <textarea id="composer-input" class="composer__input" rows="1" placeholder="Bugun neyi arastiralim?"></textarea>
-          <button class="composer__send" type="submit" aria-label="Gonder">
+          <label class="sr-only" for="composer-input">Mesajınız</label>
+          <textarea id="composer-input" class="composer__input" rows="1" placeholder="Bugün neyi araştıralım?"></textarea>
+          <button class="composer__send" type="submit" aria-label="Gönder">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12 20 4l-3 8 3 8-16-8Z"/></svg>
           </button>
         </form>
         <p class="composer__hint">
-          Mesajiniz secili ajana iletilir — su an secili: <strong id="active-agent-name">—</strong>
+          Mesajınız seçili ajana iletilir — şu an seçili: <strong id="active-agent-name">—</strong>
         </p>
       </section>
     </main>
 
     <!-- ================= SAG DOCK ================= -->
-    <nav class="dock" id="dock" aria-label="Hizli erisim"></nav>
+    <nav class="dock" id="dock" aria-label="Hızlı erişim"></nav>
 
     <footer class="footer">
-      <nav class="footer__links" id="footer-links" aria-label="Alt menu"></nav>
+      <nav class="footer__links" id="footer-links" aria-label="Alt menü"></nav>
       <p class="footer__copy" data-site="copyright"></p>
     </footer>
   </div>
@@ -84,7 +84,7 @@
   <!-- ================= ONBOARDING KARUSELI ================= -->
   <div class="overlay" id="overlay" hidden>
     <div class="overlay__backdrop" data-action="close-overlay"></div>
-    <div class="overlay__dialog" role="dialog" aria-modal="true" aria-label="Ajanlari tani">
+    <div class="overlay__dialog" role="dialog" aria-modal="true" aria-label="Ajanları tanıyın">
       <button class="overlay__close" type="button" data-action="close-overlay" aria-label="Kapat">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
       </button>
@@ -93,7 +93,7 @@
         <span class="overlay__navBtn">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg>
         </span>
-        <span class="overlay__navLabel">See previous<br />agent</span>
+        <span class="overlay__navLabel">Önceki<br />ajan</span>
       </button>
 
       <div class="overlay__track" id="overlay-track"></div>
@@ -102,12 +102,12 @@
         <span class="overlay__navBtn">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg>
         </span>
-        <span class="overlay__navLabel">See next<br />agent</span>
+        <span class="overlay__navLabel">Sonraki<br />ajan</span>
       </button>
 
       <label class="overlay__dismiss">
         <input type="checkbox" id="dont-show" />
-        <span>Don't show me this again</span>
+        <span>Bunu bir daha gösterme</span>
       </label>
     </div>
   </div>

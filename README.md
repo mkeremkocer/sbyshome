@@ -1,93 +1,113 @@
-# Ajan Ana Sayfasi
+# Ajan Ana Sayfası
 
-3 avatar kartinin yer aldigi platform ana sayfasi. Bir avatarin **uzerine gelindiginde**
-(mobilde dokunuldugunda) kart one cikar ve **alt basliklar sekme olarak acilir**.
-Her avatar ve her sekme, sizin tanimlayacaginiz **linke** yonlendirir.
+3 avatar kartının yer aldığı platform ana sayfası. Bir avatarın **üzerine gelindiğinde**
+(mobilde dokunulduğunda) kart öne çıkar ve **alt başlıklar sekme olarak açılır**.
+Her avatar ve her sekme, sizin tanımlayacağınız **bağlantıya** yönlendirir.
 
-Kurulum gerektirmez: `index.html` dosyasini tarayicida acmak yeterlidir.
-Derleme adimi, paket yoneticisi veya bagimlilik yoktur.
+Kurulum gerektirmez: `index.html` dosyasını tarayıcıda açmak yeterlidir.
+Derleme adımı, paket yöneticisi veya bağımlılık yoktur.
 
 ---
 
-## Linkleri nereye yazacaksiniz
+## Nasıl açılır
 
-Tum icerik `data/` klasorundeki iki dosyadan yonetilir. Kod dosyalarina dokunmaniza gerek yok.
+**En kolay yol:** Depoyu indirin, `index.html` dosyasına çift tıklayın.
+
+```bash
+git clone https://github.com/mkeremkocer/sbyshome.git
+cd sbyshome
+git checkout claude/platform-homepage-avatars-5x8kva
+```
+
+Sonra `index.html` dosyasını tarayıcıda açın. Yerel sunucu ile çalıştırmak isterseniz:
+
+```bash
+python3 -m http.server 8000
+# tarayıcıda: http://localhost:8000
+```
+
+**GitHub Pages ile yayınlamak için:** Depo ayarlarında Settings → Pages → Source olarak
+bu dalı seçin. Adres `https://mkeremkocer.github.io/sbyshome/` olur.
+
+---
+
+## Bağlantıları nereye yazacaksınız
+
+Tüm içerik `data/` klasöründeki iki dosyadan yönetilir. Kod dosyalarına dokunmanıza gerek yok.
 
 ### 1. Avatarlar — `data/agents.js`
 
-Her avatar icin doldurulacak alanlar:
-
-| Alan | Ne ise yarar |
+| Alan | Ne işe yarar |
 |---|---|
-| `name` | Kart uzerindeki isim |
-| `role` | Isim altindaki italik unvan |
-| `photo` | Avatar gorseli. **Yerel dosya** (`assets/img/nash.jpg`) ya da **dis link** (`https://...jpg`) olabilir. Gorsel acilmazsa otomatik yedek avatar cizilir. |
-| `link` | **Avatara erisim linki.** "Inspire me" butonu ve sekmeler bu adrese gider. |
-| `query` | Alt taraftaki yazi kutusuna girilen metnin linke eklenecegi parametre adi (varsayilan `q`). |
-| `accent` | Kartin vurgu rengi |
-| `summary` | Kart aciklamasi |
-| `cta` | Buton yazisi |
-| `tabs` | **Alt basliklar.** Hover ile acilan sekmeler. |
+| `name` | Kart üzerindeki isim |
+| `role` | İsim altındaki italik unvan |
+| `photo` | Avatar görseli. **Yerel dosya** (`assets/img/nash.jpg`) ya da **dış bağlantı** (`https://...jpg`) olabilir. Görsel açılmazsa otomatik yedek avatar çizilir. |
+| `link` | **Avatara erişim bağlantısı.** Kart butonu ve sekmeler bu adrese gider. |
+| `query` | Alt taraftaki yazı kutusuna girilen metnin bağlantıya ekleneceği parametre adı (varsayılan `q`). |
+| `accent` | Kartın vurgu rengi |
+| `summary` | Kart açıklaması |
+| `cta` | Buton yazısı |
+| `tabs` | **Alt başlıklar.** Üzerine gelince açılan sekmeler. |
 
-Ornek:
+Örnek:
 
 ```js
 {
   id: 'nash',
   name: 'Nash',
-  role: 'Competitor Analysis Manager',
+  role: 'Rekabet Analizi Yöneticisi',
   accent: '#2563ff',
-  photo: 'https://cdn.ornek.com/nash.jpg',     // <- avatar gorseli (link de olabilir)
-  link: 'https://platform.ornek.com/ajan/nash', // <- ERISIM LINKI buraya
+  photo: 'https://cdn.ornek.com/nash.jpg',      // <- avatar görseli (bağlantı da olabilir)
+  link: 'https://platform.ornek.com/ajan/nash', // <- ERİŞİM BAĞLANTISI buraya
   query: 'q',
-  summary: 'Rekabet ortamina dair kapsamli icgoruler sunar.',
-  cta: 'Inspire me',
+  summary: 'Rekabet ortamına dair kapsamlı içgörüler sunar.',
+  cta: 'İlham ver',
   tabs: [
     {
-      label: 'Rakip Karnesi',                        // sekme basligi
-      title: 'Rakip karnesi',                        // panel basligi
-      text: 'Buyume, pazar payi ve karlilik...',     // panel metni
-      link: 'https://platform.ornek.com/nash/karne'  // bos birakilirsa avatarin ana linki kullanilir
+      label: 'Rakip Karnesi',                        // sekme başlığı
+      title: 'Rakip karnesi',                        // panel başlığı
+      text: 'Büyüme, pazar payı ve kârlılık...',     // panel metni
+      link: 'https://platform.ornek.com/nash/karne'  // boş bırakılırsa avatarın ana bağlantısı kullanılır
     }
   ]
 }
 ```
 
-Sekme sayisi serbesttir; 2'den fazla sekme eklerseniz kartin altindaki noktalar da otomatik artar.
+Sekme sayısı serbesttir; 2'den fazla sekme eklerseniz kartın altındaki noktalar da otomatik artar.
 
-### 2. Sayfa ayarlari — `data/site.js`
+### 2. Sayfa ayarları — `data/site.js`
 
-Marka adi, karsilama metni, sag taraftaki dairesel kisayollar, sol menu linkleri ve footer
-baglantilari buradan duzenlenir. Tanitim karuselini kapatmak icin `onboarding: false` yapin.
+Marka adı, karşılama metni, sağdaki dairesel kısayollar, sol menü bağlantıları ve footer
+bağlantıları buradan düzenlenir. Tanıtım karuselini kapatmak için `onboarding: false` yapın.
 
-> Link alani bos birakilan her buton "pasif" gorunur ve tiklandiginda hangi dosyadaki
-> hangi alanin doldurulmasi gerektigini soyleyen bir bilgi mesaji gosterir.
-
----
-
-## Davranis
-
-- **Hover / odak:** Avatarin uzerine gelindiginde kart one cikar, digerleri kararir ve alt basliklar acilir.
-- **Dokunmatik:** Mobilde karta dokunmak ayni islevi gorur.
-- **Klavye:** Kartlar arasinda `←` `→`, sekmeler arasinda yine `←` `→` ile gezilir; `Tab` ile odaklanan kart otomatik acilir.
-- **Yazi kutusu:** Girilen metin, secili ajanin linkine `?q=...` olarak eklenip yeni sekmede acilir.
-- **Tanitim karuseli:** Ilk girişte acilir. "Don't show me this again" secildiginde tarayicida saklanir (`localStorage`) ve bir daha acilmaz. Sol menudeki **New Chat** ile tekrar acilabilir.
-- **Duzen sabitligi:** Sekmeler acilirken sayfanin zipllamamasi icin en yuksek kart yuksekligi onceden rezerve edilir.
+> Bağlantısı boş bırakılan her buton pasif görünür ve tıklandığında hangi dosyadaki
+> hangi alanın doldurulması gerektiğini söyleyen bir bilgi mesajı gösterir.
 
 ---
 
-## Dosya yapisi
+## Davranış
+
+- **Üzerine gelme / odak:** Avatarın üzerine gelindiğinde kart öne çıkar, diğerleri kararır ve alt başlıklar açılır.
+- **Dokunmatik:** Mobilde karta dokunmak aynı işlevi görür.
+- **Klavye:** Kartlar arasında `←` `→`, sekmeler arasında yine `←` `→` ile gezilir; `Tab` ile odaklanan kart otomatik açılır.
+- **Yazı kutusu:** Girilen metin, seçili ajanın bağlantısına `?q=...` olarak eklenip yeni sekmede açılır.
+- **Tanıtım karuseli:** İlk girişte açılır. "Bunu bir daha gösterme" seçildiğinde tarayıcıda saklanır (`localStorage`) ve bir daha açılmaz. Sol menüdeki **Yeni Sohbet** ile tekrar açılabilir.
+- **Düzen sabitliği:** Sekmeler açılırken sayfanın zıplamaması için en yüksek kart yüksekliği önceden rezerve edilir.
+
+---
+
+## Dosya yapısı
 
 ```
 index.html              Sayfa iskeleti
-assets/css/styles.css   Tum stiller
-assets/js/app.js        Kart olusturma, sekmeler, karusel, link yonlendirme
-assets/img/             Yer tutucu avatarlar (kendi gorsellerinizle degistirin)
-data/agents.js          AVATARLAR VE LINKLER
-data/site.js            Sayfa metinleri, kisayollar, footer
+assets/css/styles.css   Tüm stiller
+assets/js/app.js        Kart oluşturma, sekmeler, karusel, bağlantı yönlendirme
+assets/img/             Yer tutucu avatarlar (kendi görsellerinizle değiştirin)
+data/agents.js          AVATARLAR VE BAĞLANTILAR
+data/site.js            Sayfa metinleri, kısayollar, footer
 ```
 
-## Yayina alma
+## Yayına alma
 
-Statik dosyalardan olustugu icin herhangi bir statik barindirmaya (GitHub Pages, Netlify,
-Vercel, S3, kendi web sunucunuz) oldugu gibi yuklenebilir.
+Statik dosyalardan oluştuğu için herhangi bir statik barındırmaya (GitHub Pages, Netlify,
+Vercel, S3, kendi web sunucunuz) olduğu gibi yüklenebilir.
