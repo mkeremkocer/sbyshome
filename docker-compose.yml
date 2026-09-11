@@ -1,0 +1,21 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ajan-ana-sayfasi:latest
+    container_name: ajan-ana-sayfasi
+    restart: unless-stopped
+    ports:
+      # Sol taraf makinenizdeki port. .env icinde PORT=9000 gibi degistirebilirsiniz.
+      - "${PORT:-8080}:80"
+    volumes:
+      # Icerik dosyalari disaridan baglanir: baglantilari/metinleri duzenleyip
+      # sayfayi yenilemek yeterli, imaji yeniden kurmaniz gerekmez.
+      - ./data:/usr/share/nginx/html/data:ro
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/healthz"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s

@@ -76,17 +76,21 @@
 
   /* Görsel yüklenemezse baş harfli yedek avatar üret */
   function fallbackAvatar(agent) {
-    var letter = (agent.name || '?').charAt(0).toUpperCase();
-    var accent = agent.accent || '#2563ff';
+    var code = (agent.name || '?').toUpperCase().slice(0, 6);
+    var ground = agent.ground || '#0f7a5f';
+    var accent = agent.accent || '#7dd0b6';
+    var size = code.length > 4 ? 42 : 58;
     var markup =
-      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">' +
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200">' +
       '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">' +
       '<stop offset="0" stop-color="' + accent + '"/>' +
-      '<stop offset="1" stop-color="#0d1b3e"/>' +
+      '<stop offset="1" stop-color="' + ground + '"/>' +
       '</linearGradient></defs>' +
-      '<rect width="300" height="300" fill="url(#g)"/>' +
-      '<text x="150" y="196" font-family="Inter,Arial,sans-serif" font-size="140" font-weight="700" ' +
-      'fill="rgba(255,255,255,.9)" text-anchor="middle">' + letter + '</text>' +
+      '<rect width="320" height="200" fill="url(#g)"/>' +
+      '<circle cx="160" cy="100" r="62" fill="#ffffff" fill-opacity=".16"/>' +
+      '<text x="160" y="' + (108 + size / 8) + '" font-family="Inter,Helvetica,Arial,sans-serif" ' +
+      'font-size="' + size + '" font-weight="700" letter-spacing="1" ' +
+      'fill="#ffffff" fill-opacity=".95" text-anchor="middle">' + code + '</text>' +
       '</svg>';
     return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(markup);
   }
@@ -130,7 +134,8 @@
 
   function buildCard(agent, index, scope) {
     var card = el('article', 'card');
-    card.style.setProperty('--accent', agent.accent || '#2563ff');
+    card.style.setProperty('--ground', agent.ground || '#0f7a5f');
+    card.style.setProperty('--accent', agent.accent || '#7dd0b6');
     card.dataset.index = String(index);
     card.dataset.scope = scope;
     card.setAttribute('role', 'listitem');
@@ -156,9 +161,9 @@
     /* Gövde */
     var body = el('div', 'card__body');
     body.appendChild(el('h3', 'card__name', agent.name));
-    body.appendChild(el('p', 'card__role', agent.role || ''));
+    if (agent.role) body.appendChild(el('p', 'card__role', agent.role));
     body.appendChild(el('hr', 'card__rule'));
-    body.appendChild(el('p', 'card__summary', agent.summary || ''));
+    if (agent.summary) body.appendChild(el('p', 'card__summary', agent.summary));
 
     /* Üzerine gelince açılan alt başlıklar */
     var tabs = Array.isArray(agent.tabs) ? agent.tabs : [];

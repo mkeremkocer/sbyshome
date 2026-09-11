@@ -2,96 +2,74 @@
    AVATAR / AJAN TANIMLARI
    -----------------------------------------------------------------------------
    Ana sayfadaki 3 avatar buradan yönetilir. Kod değiştirmeden sadece bu dosyayı
-   düzenlemek yeterlidir.
+   düzenlemek yeterlidir. Docker ile çalıştırırken bu klasör konteynere bağlandığı
+   için dosyayı kaydedip sayfayı yenilemek yeterlidir; imajı yeniden kurmanız
+   gerekmez.
 
-   photo : Avatar görseli. Hem yerel dosya ("assets/img/nash.jpg") hem de
-           dışarıdan verilen bir bağlantı ("https://.../nash.jpg") kabul eder.
-           Görsel yüklenemezse otomatik olarak yedek avatar çizilir.
-   link  : Avatara ERİŞİM bağlantısı. "İlham ver" butonu ve sekme bağlantıları
-           bu adrese gider. Bağlantı verilmediğinde buton pasif görünür ve
-           kullanıcıya hangi alanın doldurulacağını söyleyen bir mesaj çıkar.
-   query : (opsiyonel) Alt taraftaki yazı kutusuna girilen metnin bağlantıya
-           hangi parametre ile ekleneceği. Varsayılan "q".
-           Örnek: link + "?q=rakip analizi"
-   tabs  : Avatarın üzerine gelindiğinde açılan ALT BAŞLIKLAR (sekmeler).
-           Her sekmenin kendi başlığı, açıklaması ve isteğe bağlı kendi
-           bağlantısı olur. Sekmede "link" yoksa avatarın ana bağlantısı kullanılır.
+   name    : Kart üzerindeki isim
+   role    : İsim altındaki italik unvan. Boş bırakılırsa satır hiç görünmez.
+   ground  : Kartın koyu gövde zemini (marka rampasından koyu bir ton)
+   accent  : Karta ait vurgu rengi — hale, kenarlık ve fotoğraf zemini
+   photo   : Avatar görseli. Yerel dosya ("assets/img/spy.jpg") ya da dış bağlantı
+             ("https://.../spy.jpg") olabilir. Yüklenemezse yedek avatar çizilir.
+   link    : Avatara ERİŞİM bağlantısı. Kart butonu ve sekmeler bu adrese gider.
+             Boşken buton pasif görünür ve hangi alanın doldurulacağı söylenir.
+   query   : Yazı kutusuna girilen metnin bağlantıya ekleneceği parametre adı
+             (varsayılan "q"). Örnek: link + "?q=rakip analizi"
+   summary : Kart açıklaması. Boş bırakılırsa satır görünmez.
+   tabs    : Avatarın üzerine gelindiğinde açılan ALT BAŞLIKLAR (sekmeler).
+             Sekmede "link" yoksa avatarın ana bağlantısı kullanılır.
+
+   NOT: Alt başlıklar henüz belirlenmediği için aşağıdakiler yer tutucudur.
    ========================================================================== */
 
 window.AGENTS = [
   {
-    id: 'tracy',
-    name: 'Tracy',
-    role: 'Takip Yöneticisi',
-    accent: '#6d4aff',
-    photo: 'assets/img/tracy.svg',
+    id: 'spkpy',
+    name: 'SPKPY',
+    role: '',
+    ground: '#0f7a5f',
+    accent: '#c2ecdf',
+    photo: 'assets/img/spkpy.svg',
     link: '',
     query: 'q',
-    summary: 'Seçtiğiniz şirketleri gerçek zamanlı izler, önemli gelişmeleri öne çıkarır.',
-    cta: 'İlham ver',
+    summary: 'Kısa tanıtım metni — data/agents.js içinden düzenlenir.',
+    cta: 'Aç',
     tabs: [
-      {
-        label: 'Takip Listesi',
-        title: 'İzlediğiniz şirketler',
-        text: 'Yatırım, ürün ve yönetim hareketlerini tek akışta toplar.',
-        link: ''
-      },
-      {
-        label: 'Uyarılar',
-        title: 'Anlık uyarılar',
-        text: 'Eşikler aşıldığında bildirir, günlük özet raporu oluşturur.',
-        link: ''
-      }
+      { label: 'Alt başlık 1', title: 'Alt başlık 1', text: 'Bu sekmenin metnini data/agents.js içinden yazın.', link: '' },
+      { label: 'Alt başlık 2', title: 'Alt başlık 2', text: 'Bu sekmenin metnini data/agents.js içinden yazın.', link: '' }
     ]
   },
   {
-    id: 'nash',
-    name: 'Nash',
-    role: 'Rekabet Analizi Yöneticisi',
-    accent: '#2563ff',
-    photo: 'assets/img/nash.svg',
+    id: 'spmo',
+    name: 'SPMO',
+    role: '',
+    ground: '#063d2f',
+    accent: '#7dd0b6',
+    photo: 'assets/img/spmo.svg',
     link: '',
     query: 'q',
-    summary: 'Rekabet ortamına dair kapsamlı içgörüler sunar, kararlarınızı veriyle destekler.',
-    cta: 'İlham ver',
+    summary: 'Kısa tanıtım metni — data/agents.js içinden düzenlenir.',
+    cta: 'Aç',
     tabs: [
-      {
-        label: 'Rakip Karnesi',
-        title: 'Rakip karnesi',
-        text: 'Büyüme, pazar payı ve kârlılık göstergelerini yan yana karşılaştırır.',
-        link: ''
-      },
-      {
-        label: 'Konumlandırma',
-        title: 'Konumlandırma haritası',
-        text: 'Ürün ve fiyat ekseninde rekabetteki boşlukları görselleştirir.',
-        link: ''
-      }
+      { label: 'Alt başlık 1', title: 'Alt başlık 1', text: 'Bu sekmenin metnini data/agents.js içinden yazın.', link: '' },
+      { label: 'Alt başlık 2', title: 'Alt başlık 2', text: 'Bu sekmenin metnini data/agents.js içinden yazın.', link: '' }
     ]
   },
   {
-    id: 'nova',
-    name: 'Nova',
-    role: 'Pazar İstihbaratı Yöneticisi',
-    accent: '#e0489b',
-    photo: 'assets/img/nova.svg',
+    id: 'spy',
+    name: 'SPY',
+    role: '',
+    ground: '#2C3340',
+    accent: '#2aa78e',
+    photo: 'assets/img/spy.svg',
     link: '',
     query: 'q',
-    summary: 'Sektör gelişmeleri ve pazar trendleri konusunda sizi güncel tutar.',
-    cta: 'İlham ver',
+    summary: 'Kısa tanıtım metni — data/agents.js içinden düzenlenir.',
+    cta: 'Aç',
     tabs: [
-      {
-        label: 'Trendler',
-        title: 'Yükselen trendler',
-        text: 'Hızla büyüyen temaları ve yeni oyuncuları listeler.',
-        link: ''
-      },
-      {
-        label: 'Düzenlemeler',
-        title: 'Mevzuat radarı',
-        text: 'İşinizi etkileyecek mevzuat değişikliklerini sade dille özetler.',
-        link: ''
-      }
+      { label: 'Alt başlık 1', title: 'Alt başlık 1', text: 'Bu sekmenin metnini data/agents.js içinden yazın.', link: '' },
+      { label: 'Alt başlık 2', title: 'Alt başlık 2', text: 'Bu sekmenin metnini data/agents.js içinden yazın.', link: '' }
     ]
   }
 ];
